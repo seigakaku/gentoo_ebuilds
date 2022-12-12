@@ -1,10 +1,10 @@
-E-build for [gpodder2go](https://github.com/oxtyped/gpodder2go)
+# Gentoo ebuild for [gpodder2go](https://github.com/oxtyped/gpodder2go)
 <h3>
 See https://github.com/oxtyped/gpodder2go for more information.
 </h3>
 ## Instructions
 
-#### Versions
+### Versions
 |  Version  | Description   |
 | :------------: | :------------: |
 | 9999   |  Live source, fetched from github  |
@@ -13,7 +13,7 @@ This repo contains all the go modules used by gpodder2go in a tarball in the fil
 
 The `/migrations` directory is installed to `/usr/share/gpodder2go/migrations`, it is necessary for initializing the sqlite database.
 
-#### Parameters
+### Parameters
 These can be configured in the `confd` file at `/etc/conf.d/gpodder2go`
 
 | Name   |  Default  | Description   |
@@ -23,7 +23,7 @@ These can be configured in the `confd` file at `/etc/conf.d/gpodder2go`
 |  G2G_LISTEN_ADDR  |  127.0.0.1:3005  |  The address to bind the listening socket to  |
 |  G2G_EXTRA_PARAMS  |  --no-auth  |  Extra command line parameters passed directly to `gpodder2go serve`, see https://github.com/oxtyped/gpodder2go#limitations  |
 
-#### Extra Information
+### Extra Information
 
 - The openrc init file uses `supervise-daemon` for running gpodder2go.
 
