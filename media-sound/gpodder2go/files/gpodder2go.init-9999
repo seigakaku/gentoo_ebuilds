@@ -1,0 +1,74 @@
+#!/sbin/openrc-run
+# Copyright 2022 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+G2G_DB_FILE="${G2G_DB_FILE:-g2g.db}"
+G2G_LISTEN_ADDR="${G2G_LISTEN_ADDR:-127.0.0.1:3005}"
+G2G_EXTRA_PARAMS="${G2G_EXTRA_PARAMS:---no-auth}"
+G2G_LOG_FILE="${G2G_LOG_FILE:-/var/log/gpodder2go}"
+
+name="gpodder2go daemon"
+description="simple self-hosted, drop-in replacement for gpodder/mygpo"
+command="/usr/bin/gpodder2go"
+command_user="gpodder2go"
+command_group="gpodder2go"
+supervisor="supervise-daemon"
+
+extra_commands="checkconfig"
+
+checkconfig() {
+	if [ -z "${G2G_VERIFIER_SECRET_KEY}" ]; then
+		echo "G2G_VERIFIER_SECRET_KEY must not be empty."   
+		return 1
+	fi
+}
+
+start_pre() {
+	checkconfig || return 1
+	if ! [ -f "${G2G_DB_FILE}" ]; then
+		[ -d "@_DATA_DIR_@/migrations" ] || eend "Migrations directory '@_DATA_DIR_@' doesn't exist"
+		
+		# Enfore correct permissions for migrations dir
+		checkpath -d -m 555 -o ${command_user}:${command_group} "@_DATA_DIR_@" 
+		checkpath -d -m 555 -o ${command_user}:${command_group} "@_DATA_DIR_@/migrations" 
+
+		# Create the directory for the database file and set permissions.
+		db_dir="$(dirname ${G2G_DB_FILE})"
+		mkdir -pv "${db_dir}"
+		checkpath -d -m 755 -o ${command_user}:${command_group} "${db_dir}"
+
+		# Change directory and create the database
+		pushd "@_DATA_DIR_@" 2>&1>/dev/null
+		ebegin "Creating gpodder2go database at ${G2G_DB_FILE}"
+		"${command}" init -d "${G2G_DB_FILE}" || eend "Failed to generate database file."
+		popd 2>&1>/dev/null
+	fi
+
+	# Correct the db file permissions
+	checkpath -f -m 644 -o ${command_user}:${command_group} "${G2G_DB_FILE}"
+	# Create and correct the log file
+	checkpath -f -m 640 -o ${command_user}:${command_group} "${G2G_LOG_FILE}"
+}
+
+start() {
+	ebegin "Starting gpodder2go"
+
+
+	"${supervisor}" "${RC_SVCNAME}" \
+		--env VERIFIER_SECRET_KEY="${G2G_VERIFIER_SECRET_KEY}" \
+		--user "${command_user}" \
+		--group "${command_group}" \
+		--stdout "${G2G_LOG_FILE}" \
+		--stderr "${G2G_LOG_FILE}" \
+		--start "${command}" -- \
+			serve \
+			--addr "${G2G_LISTEN_ADDR}" \
+			--database "${G2G_DB_FILE}" \
+			${G2G_EXTRA_PARAMS[@]}
+
+	ebegin "Listening on ${G2G_LISTEN_ADDR}"
+	ebegin "Create accounts with:"
+	ebegin "	${command} --api-addr '${G2G_LISTEN_ADDR}' accounts create <username> --email='<email>' --name='<display_name>' --password='<password>'"
+	ebegin "Server available at:"
+	ebegin " 	http://${G2G_LISTEN_ADDR}"
+}

@@ -1,0 +1,9 @@
+G2G_DB_FILE="/var/lib/gpodder2go/g2g.db"
+
+# This MUST be changed.
+G2G_VERIFIER_SECRET_KEY=""
+
+# Listen only on localhost by default.
+G2G_LISTEN_ADDR="127.0.0.1:3005"
+
+G2G_EXTRA_PARAMS="--no-auth"

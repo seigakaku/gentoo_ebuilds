@@ -1,0 +1,11 @@
+BDEPEND=dev-lang/go dev-db/sqlite acct-group/gpodder2go acct-user/gpodder2go >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile install prepare unpack
+DESCRIPTION=simple self-hosted, drop-in replacement for gpodder/mygpo
+EAPI=8
+HOMEPAGE=https://github.com/oxtyped/gpodder2go
+INHERIT=git-r3
+LICENSE=AGPL-3
+PROPERTIES=live
+SLOT=0
+_eclasses_=git-r3	2347f8fe2d392b2a091191f94be37e6f
+_md5_=224866ee833c2ceee1827dd0245ddb58
