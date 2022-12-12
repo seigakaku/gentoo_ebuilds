@@ -1,7 +1,9 @@
 # Gentoo ebuild for [gpodder2go](https://github.com/oxtyped/gpodder2go)
+
 <h3>
 See https://github.com/oxtyped/gpodder2go for more information.
 </h3>
+
 ## Instructions
 
 ### Versions
