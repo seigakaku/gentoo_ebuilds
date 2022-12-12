@@ -1,13 +1,15 @@
 # Gentoo ebuild for [gpodder2go](https://github.com/oxtyped/gpodder2go)
+
 <h3>
 See https://github.com/oxtyped/gpodder2go for more information.
 </h3>
+
 ## Instructions
 
 ### Versions
 |  Version  | Description   |
 | :------------: | :------------: |
-| 9999   |  Live source, fetched from github  |
+| 9999   |  Live source, fetched from github (needs to be unmasked)  |
 
 This repo contains all the go modules used by gpodder2go in a tarball in the files directory.
 
