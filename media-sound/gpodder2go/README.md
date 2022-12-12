@@ -9,7 +9,7 @@ See https://github.com/oxtyped/gpodder2go for more information.
 ### Versions
 |  Version  | Description   |
 | :------------: | :------------: |
-| 9999   |  Live source, fetched from github  |
+| 9999   |  Live source, fetched from github (needs to be unmasked)  |
 
 This repo contains all the go modules used by gpodder2go in a tarball in the files directory.
 
