@@ -7,3 +7,5 @@ G2G_VERIFIER_SECRET_KEY=""
 G2G_LISTEN_ADDR="127.0.0.1:3005"
 
 G2G_EXTRA_PARAMS="--no-auth"
+
+G2G_LOG_FILE="/var/log/gpodder2go"
