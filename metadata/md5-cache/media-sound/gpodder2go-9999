@@ -7,5 +7,6 @@ INHERIT=git-r3
 LICENSE=AGPL-3
 PROPERTIES=live
 SLOT=0
+SRC_URI=https://github.com/seigakaku/gentoo_ebuilds/releases/download/gpodder2go-9999/gpodder2go-vendor-9999.tar.xz
 _eclasses_=git-r3	2347f8fe2d392b2a091191f94be37e6f
-_md5_=224866ee833c2ceee1827dd0245ddb58
+_md5_=7d3e616d8962e4bdf0beffdc330ac2d6

@@ -8,7 +8,8 @@ See https://github.com/oxtyped/gpodder2go for more information.
 ### Versions
 |  Version  | Description   |
 | :------------: | :------------: |
-| 9999   |  Live source, fetched from github (needs to be unmasked)  |
+| 9999   |  Live source, fetched from GitHub from master branch (needs to be unmasked)  |
+| 0.1.1  |  [Release 0.1.1](https://github.com/oxtyped/gpodder2go/releases/tag/v0.1.1)  | 
 
 ### Parameters
 These can be configured in the `confd` file at `/etc/conf.d/gpodder2go`
