@@ -12,13 +12,13 @@ log_file="${log_file:=/var/log/gpodder2go/gpodder2go.log}"
 description="gpodder2go is a simple self-hosted, golang, drop-in replacement for gpodder/mygpo server to handle podcast subscriptions management for gpodder clients."
 
 start_pre() {
-	if [[ -z "${VERIFIER_SECRET_KEY}" ]]; then
+	if test -z "${VERIFIER_SECRET_KEY}"; then
 		eerror "\$verifier_secret_key is empty, please set it in /etc/conf.d/gpodder2go"
 		return 1
 	fi
 	checkpath -d -m 0755 -o "${user}" "$(dirname "${database}")"
 	checkpath -m 664 -o "${user}" "${log_file}"
-	[[ -f "${database}" ]] || "${command}" --database "${database}" init
+	test -f "${database}" || "${command}" --database "${database}" init
 }
 
 start() {
