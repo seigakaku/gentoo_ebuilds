@@ -13,7 +13,7 @@ SRC_URI="https://github.com/oxtyped/$PN/archive/v$PV.tar.gz -> $P.tar.gz"
 SRC_URI="$SRC_URI https://github.com/seigakaku/gentoo_ebuilds/releases/download/$PN-$PV/$PN-vendor-$PV.tar.xz"
 
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="amd64 arm64 x86"
 DEPEND=""
 
 RDEPEND="$DEPEND"
