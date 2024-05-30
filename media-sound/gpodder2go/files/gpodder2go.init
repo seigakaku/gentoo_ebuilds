@@ -1,0 +1,35 @@
+#!/sbin/openrc-run
+# Copyright 1999-2019 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+database="${database:=/var/lib/gpodder2go/g2g.db}"
+
+command=/usr/bin/gpodder2go
+command_args="--database ${database} serve --addr ${listen_address} ${extra_arguments}"
+command_user="${user:=gpodder2go}"
+log_file="${log_file:=/var/log/gpodder2go/gpodder2go.log}"
+
+description="gpodder2go is a simple self-hosted, golang, drop-in replacement for gpodder/mygpo server to handle podcast subscriptions management for gpodder clients."
+
+start_pre() {
+	if [[ -z "${VERIFIER_SECRET_KEY}" ]]; then
+		eerror "\$verifier_secret_key is empty, please set it in /etc/conf.d/gpodder2go"
+		return 1
+	fi
+	checkpath -d -m 0755 -o "${user}" "$(dirname "${database}")"
+	checkpath -m 664 -o "${user}" "${log_file}"
+	[[ -f "${database}" ]] || "${command}" --database "${database}" init
+}
+
+start() {
+	ebegin "Starting gpodder2go with database at '${database}'"
+	start-stop-daemon \
+		--background \
+		--stdout "${log_file}" \
+		--stderr "${log_file}" \
+		--env "VERIFIER_SECRET_KEY=${VERIFIER_SECRET_KEY}" \
+		"${command}" -- ${command_args}
+
+	eend "Started gpoder2go use '${command} -d ${database} accounts' to create users"
+	return 0
+}
